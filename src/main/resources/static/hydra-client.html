@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydration Reminder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+        #message {
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #ffeb3b;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">Waiting for hydration reminder...</div>
+
+        <script>
+            const connect = () => {
+                const eventSource = new EventSource("http://localhost:8080/notifications/stream");
+
+                eventSource.onmessage = (event) => {
+                    console.log("Hydration Reminder:", event.data);
+                    document.getElementById("message").textContent = event.data;
+                };
+
+                eventSource.onerror = () => {
+                    console.log("Connection lost. Reconnecting...");
+                    eventSource.close();
+                    setTimeout(connect, 3000); 
+                };
+            };
+
+            connect(); 
+        </script>
+</body>
+</html>
