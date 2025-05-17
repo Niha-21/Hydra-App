@@ -26,21 +26,29 @@
 
         <script>
             const connect = () => {
-                const eventSource = new EventSource("http://localhost:8080/notifications/stream");
+                const eventSource = new EventSource("/notifications/stream");
 
-                eventSource.onmessage = (event) => {
-                    console.log("Hydration Reminder:", event.data);
-                    document.getElementById("message").textContent = event.data;
-                };
+                eventSource.addEventListener("reminder", (event) => {
+                    const messageDiv = document.getElementById("message");
+                    messageDiv.textContent = "";
+
+                    // Erase the message after 2 seconds
+                    setTimeout(() => {
+                        messageDiv.textContent = event.data;
+                    }, 2000);
+                });
+
+                eventSource.addEventListener("heartbeat", (event) => {
+                    console.log("Heartbeat received to keep connection alive. Data:", event.data);
+                });
 
                 eventSource.onerror = () => {
                     console.log("Connection lost. Reconnecting...");
                     eventSource.close();
-                    setTimeout(connect, 3000); 
+                    setTimeout(connect, 10000);
                 };
             };
-
-            connect(); 
+            connect();
         </script>
 </body>
 </html>

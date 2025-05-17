@@ -18,11 +18,9 @@ public class NotificationController {
 
     @GetMapping(value = "/notifications/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter streamNotifications() {
-        SseEmitter emitter = new SseEmitter();
-
+        SseEmitter emitter = new SseEmitter(); 
         notificationService.setEmitter(emitter);
-
-        // Initial message
+        System.out.println("Creating Emitter");
         try {
             emitter.send(SseEmitter.event().name("init").data("Hydra reminder stream started!"));
         } catch (IOException e) {
@@ -31,4 +29,5 @@ public class NotificationController {
 
         return emitter;
     }
+
 }
