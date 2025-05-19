@@ -1,29 +1,19 @@
 package com.nks.hydra.hydration_reminder.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 
 @Service
 public class NotificationService {
 
-    private SseEmitter emitter;
-
-    public void setEmitter(SseEmitter emitter) {
-        this.emitter = emitter;
-    }
+    @Autowired
+    private ReminderProducer reminderProducer;
 
     @Scheduled (fixedRate = 5000)
     public void setReminder() {
-        if(emitter != null) {
-            try {
-                emitter.send(SseEmitter.event().name("reminder").data("💧 Drink water to stay hydrated!"));
-            } catch (Exception e) {
-                System.out.println("Exception in sending reminder!");
-                emitter.completeWithError(e);
-            }
-        }
+        reminderProducer.sendReminder("💧 Drink water to stay hydrated!");
     }
 
 }

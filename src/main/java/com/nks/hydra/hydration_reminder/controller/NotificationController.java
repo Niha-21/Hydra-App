@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import com.nks.hydra.hydration_reminder.service.NotificationService;
+import com.nks.hydra.hydration_reminder.service.SseEmitterManager;
 
 import java.io.IOException;
 
@@ -14,13 +14,14 @@ import java.io.IOException;
 public class NotificationController {
 
     @Autowired
-    private NotificationService notificationService;
+    private SseEmitterManager sseEmitterManager;
 
     @GetMapping(value = "/notifications/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter streamNotifications() {
-        SseEmitter emitter = new SseEmitter(); 
-        notificationService.setEmitter(emitter);
-        System.out.println("Creating Emitter");
+
+        SseEmitter emitter = new SseEmitter(0L); 
+        sseEmitterManager.setEmitter(emitter);
+
         try {
             emitter.send(SseEmitter.event().name("init").data("Hydra reminder stream started!"));
         } catch (IOException e) {
