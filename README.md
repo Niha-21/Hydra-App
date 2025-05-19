@@ -25,5 +25,7 @@ Hydra is a real-time hydration reminder application built using **Spring Boot**,
 
 ---
 
+## Demonstration
 
+[Watch Demo](media/demo.mp4)
 
