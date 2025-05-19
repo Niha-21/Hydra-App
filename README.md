@@ -1,3 +1,8 @@
+![Java](https://img.shields.io/badge/Java-17-blue)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-3.2-green)
+![Kafka](https://img.shields.io/badge/Kafka-3.6-orange)
+![Project Status](https://img.shields.io/badge/status-active-brightgreen)
+
 # Hydra-App
 
 Hydra is a real-time hydration reminder application built using **Spring Boot**, **Kafka**, and **Server-Sent Events (SSE)**. It pushes periodic 'Stay Hydrated' reminders to users via SSE, backed by Kafka for reliable message delivery.
