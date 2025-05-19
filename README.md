@@ -1,6 +1,6 @@
-![Java](https://img.shields.io/badge/Java-17-blue)
-![Spring Boot](https://img.shields.io/badge/SpringBoot-3.2-green)
-![Kafka](https://img.shields.io/badge/Kafka-3.6-orange)
+![Java](https://img.shields.io/badge/Java-21-blue)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-3.4-green)
+![Kafka](https://img.shields.io/badge/Kafka-3.5-orange)
 ![Project Status](https://img.shields.io/badge/status-active-brightgreen)
 
 # Hydra-App
