@@ -30,22 +30,17 @@
 
                 eventSource.addEventListener("reminder", (event) => {
                     const messageDiv = document.getElementById("message");
-                    messageDiv.textContent = "";
+                    messageDiv.textContent = event.data;
 
                     // Erase the message after 2 seconds
                     setTimeout(() => {
-                        messageDiv.textContent = event.data;
+                        messageDiv.textContent = "Waiting...";
                     }, 2000);
                 });
 
-                eventSource.addEventListener("heartbeat", (event) => {
-                    console.log("Heartbeat received to keep connection alive. Data:", event.data);
-                });
-
                 eventSource.onerror = () => {
-                    console.log("Connection lost. Reconnecting...");
+                    console.log("Connection lost....");
                     eventSource.close();
-                    setTimeout(connect, 10000);
                 };
             };
             connect();
